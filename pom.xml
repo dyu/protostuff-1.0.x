@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.dyuproject.protostuff</groupId>
   <artifactId>protostuff</artifactId>
-  <version>1.0.11-SNAPSHOT</version>
+  <version>1.0.10</version>
   <packaging>pom</packaging>
   <name>protostuff</name>
   <description>Java serialization library, proto compiler, code generator, protobuf utilities, gwt overlays, android DTOs</description>
@@ -136,17 +136,16 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>se.jiderhamn</groupId>
-        <artifactId>promote-maven-plugin</artifactId>
-        <version>1.0.0</version>
-        <!-- Automatically execute promote:make-promotable after each snapshot build -->
-        <executions>
-          <execution>
-            <goals>
-              <goal>make-promotable</goal>
-            </goals>
-          </execution>
-        </executions>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>2.1</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-scm-plugin</artifactId>
+        <version>1.8.1</version>
+        <configuration>
+            <tag>${project.artifactId}-${project.version}</tag>
+        </configuration>
       </plugin>
       <plugin>
         <!--<groupId>org.apache.maven</groupId>-->
