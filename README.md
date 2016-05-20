@@ -1,3 +1,3 @@
-**This repository contains code exported from Google Code, also all issues and wiki.**
-
-**The only reason why it exists is to preserve history after closing Google Code**
+```
+All backported fixes for 1.0.x are applied here.
+```
