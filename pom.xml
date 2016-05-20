@@ -18,9 +18,9 @@
     </developer>
   </developers>
   <scm>
-  	<url>https://protostuff.googlecode.com/svn/trunk</url>
-    <connection>scm:svn:https://protostuff.googlecode.com/svn/trunk</connection>
-    <developerConnection>scm:svn:https://protostuff.googlecode.com/svn/trunk</developerConnection>
+    <connection>scm:git:git@github.com:dyu/protostuff-1.0.x.git</connection>
+    <developerConnection>scm:git:git@github.com:dyu/protostuff-1.0.x.git</developerConnection>
+    <url>https://github.com/dyu/protostuff-1.0.x.git</url>
   </scm>
   <licenses>
     <license>
@@ -71,7 +71,7 @@
           <archive>
             <manifestEntries>
               <mode>development</mode>
-              <url>http://code.google.com/p/protostuff/</url>
+              <url>http://github.com/dyu/protostuff-1.0.x/</url>
               <implementation-version>${pom.version}</implementation-version>
               <package>com.dyuproject.protostuff</package>
               <Built-By>dyuproject</Built-By>
@@ -84,35 +84,6 @@
             <goals>
               <goal>jar</goal>
             </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>clean</id>
-            <phase>clean</phase>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <tasks>
-                <delete file="../dist/${project.build.finalName}.${project.packaging}" />
-              </tasks>
-            </configuration>
-          </execution>
-          <execution>
-            <id>copyjar</id>
-            <phase>install</phase>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <tasks>
-                <copy failonerror="false" file="target/${project.build.finalName}.${project.packaging}" tofile="../dist/${project.build.finalName}.${project.packaging}" />
-              </tasks>
-            </configuration>
           </execution>
         </executions>
       </plugin>
@@ -152,21 +123,28 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
+        <groupId>se.jiderhamn</groupId>
+        <artifactId>promote-maven-plugin</artifactId>
+        <version>1.0.0</version>
+        <!-- Automatically execute promote:make-promotable after each snapshot build -->
+        <executions>
+          <execution>
+            <goals>
+              <goal>make-promotable</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <!--<groupId>org.apache.maven</groupId>-->
         <artifactId>maven-release-plugin</artifactId>
-        <version>2.1</version>
         <configuration>
-          <providerImplementations>
-            <svn>javasvn</svn>
-          </providerImplementations>
+          <!-- Do nothing else in prepare, than setting completionGoals to promote:artifacts deploy:deploy -->
+          <!-- preparationGoals>promote:prepare</preparationGoals -->
+          
+          <!-- TODO error -->
+          <goals>deploy:deploy</goals>
         </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>com.google.code.maven-scm-provider-svnjava</groupId>
-            <artifactId>maven-scm-provider-svnjava</artifactId>
-            <version>2.0.4</version>
-          </dependency>
-        </dependencies>
       </plugin>
     </plugins>
   </build>
