@@ -1,4 +1,4 @@
-protostuff-1.0.10-SNAPSHOT
+protostuff-1.0.10 2016-05-21
 + gh-181: https://github.com/protostuff/protostuff/pull/183
   - protostuff-graph: Fix unknown fields encoded with WIRETYPE_REFERENCE
 + gh-154: https://github.com/protostuff/protostuff/pull/157
