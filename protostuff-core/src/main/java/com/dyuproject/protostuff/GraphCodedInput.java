@@ -110,6 +110,13 @@ implements GraphInput, Schema<Object>
         return value;
     }
     
+    @Override
+    public <T> void handleUnknownField(int fieldNumber, Schema<T> schema) throws IOException
+    {
+        if (!messageReference)
+            input.skipField(input.getLastTag());
+    }
+    
     public String getFieldName(int number)
     {
         throw new UnsupportedOperationException();
