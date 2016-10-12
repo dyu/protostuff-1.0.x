@@ -124,6 +124,9 @@ public abstract class RuntimeFieldFactory<V> implements Delegate<V>
 
     static final RuntimeFieldFactory<Object> DELEGATE;
     
+    // for repeated/collection fields.
+    static final Accessor.Factory ACCESSOR_FACTORY;
+    
     static
     {
         /*if(USE_SUN_MISC_UNSAFE)
@@ -171,6 +174,7 @@ public abstract class RuntimeFieldFactory<V> implements Delegate<V>
             POLYMORPHIC_POJO = RuntimeReflectionFieldFactory.POLYMORPHIC_POJO;
 
             DELEGATE = RuntimeReflectionFieldFactory.DELEGATE;
+            ACCESSOR_FACTORY = ReflectAccessor.FACTORY;
         //}
         
         COLLECTION = COLLECTION_SCHEMA_ON_REPEATED_FIELDS ? 
