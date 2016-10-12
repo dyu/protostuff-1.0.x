@@ -12,4 +12,5 @@ mvn versions:set -DnewVersion=$VERSION && \
 git clean -f && git add -u && git commit -m "$VERSION" && \
 mvn -Prelease deploy && mvn scm:tag && \
 mvn versions:set -DnewVersion=1.0.x-SNAPSHOT && \
-git clean -f && git add -u && git commit -m "1.0.x-SNAPSHOT"
+git clean -f && git add -u && git commit -m "post-release $VERSION" && \
+git push origin master
