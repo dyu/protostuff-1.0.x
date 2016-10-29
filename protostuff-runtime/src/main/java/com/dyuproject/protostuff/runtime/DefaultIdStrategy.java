@@ -72,7 +72,7 @@ public final class DefaultIdStrategy extends IdStrategy
         final HasSchema<?> last = pojoMapping.putIfAbsent(typeClass.getName(), new LazyRegister<T>(
                 typeClass, this));
 
-        return last == null || !(last instanceof Lazy<?>);
+        return last == null || (last instanceof LazyRegister<?>);
     }
     
     /**
