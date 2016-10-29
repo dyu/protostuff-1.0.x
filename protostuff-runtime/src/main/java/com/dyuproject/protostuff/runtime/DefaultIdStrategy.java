@@ -62,6 +62,20 @@ public final class DefaultIdStrategy extends IdStrategy
     }
     
     /**
+     * Registers a pojo lazily. Used by
+     * {@link RuntimeSchema#register(Class, Schema)}.
+     */
+    public <T> boolean registerPojo(Class<T> typeClass)
+    {
+        assert typeClass != null;
+
+        final HasSchema<?> last = pojoMapping.putIfAbsent(typeClass.getName(), new LazyRegister<T>(
+                typeClass, this));
+
+        return last == null || !(last instanceof Lazy<?>);
+    }
+    
+    /**
      * Registers a pojo.
      * Returns true if registration is successful or if the same exact schema 
      * was previously registered.
@@ -584,14 +598,14 @@ public final class DefaultIdStrategy extends IdStrategy
 
     }
     
-    static final class Lazy<T> extends HasSchema<T>
+    static class LazyRegister<T> extends HasSchema<T>
     {
         final IdStrategy strategy;
         final Class<T> typeClass;
         private volatile Schema<T> schema;
         private volatile Pipe.Schema<T> pipeSchema;
         
-        Lazy(Class<T> typeClass, IdStrategy strategy)
+        LazyRegister(Class<T> typeClass, IdStrategy strategy)
         {
             this.typeClass = typeClass;
             this.strategy = strategy;
@@ -651,6 +665,14 @@ public final class DefaultIdStrategy extends IdStrategy
                 }
             }
             return pipeSchema;
+        }
+    }
+    
+    static final class Lazy<T> extends LazyRegister<T>
+    {
+        Lazy(Class<T> typeClass, IdStrategy strategy)
+        {
+            super(typeClass, strategy);
         }
     }
     

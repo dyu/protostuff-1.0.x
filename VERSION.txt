@@ -1,3 +1,6 @@
+protostuff-1.0.12 2016-10-29
++ Prioritize registered pojos over maps/collections
+
 protostuff-1.0.11 2016-10-12
 + Speedup deser on repeated fields
 

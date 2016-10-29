@@ -751,6 +751,22 @@ public abstract class ObjectSchema extends PolymorphicSchema
             return;
         }
         
+        if (strategy.isRegistered(clazz))
+        {
+            // pojo
+            final Schema<Object> schema = strategy.writePojoIdTo(
+                    output, ID_POJO, clazz);
+            
+            if (output instanceof StatefulOutput)
+            {
+                // update using the derived schema.
+                ((StatefulOutput)output).updateLast(schema, currentSchema);
+            }
+            
+            schema.writeTo(output, value);
+            return;
+        }
+        
         if(Map.class.isAssignableFrom(clazz))
         {
             if(Collections.class == clazz.getDeclaringClass())

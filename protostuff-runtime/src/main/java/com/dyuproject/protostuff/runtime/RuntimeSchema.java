@@ -75,6 +75,21 @@ public final class RuntimeSchema<T> extends MappedSchema<T>
      * NOTE: This is only supported when {@link RuntimeEnv#ID_STRATEGY} is 
      * {@link DefaultIdStrategy}.
      */
+    public static <T> boolean register(Class<T> typeClass)
+    {
+        if (ID_STRATEGY instanceof DefaultIdStrategy)
+            return ((DefaultIdStrategy)ID_STRATEGY).registerPojo(typeClass);
+        
+        throw new RuntimeException("RuntimeSchema.register is only supported on DefaultIdStrategy");
+    }
+    
+    /**
+     * Returns true if this there is no existing one or the same schema 
+     * has already been registered (this must be done on application startup).
+     * 
+     * NOTE: This is only supported when {@link RuntimeEnv#ID_STRATEGY} is 
+     * {@link DefaultIdStrategy}.
+     */
     public static <T> boolean register(Class<T> typeClass, Schema<T> schema)
     {
         if(ID_STRATEGY instanceof DefaultIdStrategy)

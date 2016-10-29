@@ -244,6 +244,9 @@ public abstract class RuntimeFieldFactory<V> implements Delegate<V>
             return OBJECT;
         }
         
+        if (strategy.isRegistered(clazz))
+            return clazz.isInterface() ? POJO : POLYMORPHIC_POJO;
+        
         if(Map.class.isAssignableFrom(clazz))
             return RuntimeMapFieldFactory.MAP;
 
@@ -263,7 +266,7 @@ public abstract class RuntimeFieldFactory<V> implements Delegate<V>
         //
         // If you have declared fields as serializable, it wont be compatible
         if(clazz.isInterface())
-            return strategy.isRegistered(clazz) ? POJO : OBJECT;
+            return OBJECT;
         
         // checks delegated to POLYMORPHIC_POJO
         return POLYMORPHIC_POJO;
