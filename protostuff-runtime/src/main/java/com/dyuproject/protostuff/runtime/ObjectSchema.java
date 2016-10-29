@@ -751,6 +751,14 @@ public abstract class ObjectSchema extends PolymorphicSchema
             return;
         }
         
+        if (Throwable.class.isAssignableFrom(clazz))
+        {
+            // throwable
+            PolymorphicThrowableSchema.writeObjectTo(output, value, currentSchema, 
+                    strategy);
+            return;
+        }
+        
         if (strategy.isRegistered(clazz))
         {
             // pojo
@@ -840,14 +848,6 @@ public abstract class ObjectSchema extends PolymorphicSchema
             }
             
             strategy.COLLECTION_SCHEMA.writeTo(output, (Collection<Object>)value);
-            return;
-        }
-        
-        if(Throwable.class.isAssignableFrom(clazz))
-        {
-            // throwable
-            PolymorphicThrowableSchema.writeObjectTo(output, value, currentSchema, 
-                    strategy);
             return;
         }
         
