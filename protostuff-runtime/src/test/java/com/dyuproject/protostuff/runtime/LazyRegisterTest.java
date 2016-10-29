@@ -55,6 +55,7 @@ public class LazyRegisterTest extends AbstractTest
             
             if (obj instanceof MainData)
             {
+                data = (MainData)obj;
                 list = new ArrayList<MainData>();
                 list.add((MainData)obj);
                 map = new HashMap<String, MainData>();
@@ -65,6 +66,7 @@ public class LazyRegisterTest extends AbstractTest
         }
 
         Object obj;
+        MainData data;
         List<MainData> list;
         List<Object> olist;
         Map<String,MainData> map;
@@ -214,6 +216,9 @@ public class LazyRegisterTest extends AbstractTest
         
         assertTrue(objParsed.obj instanceof MainData);
         verifyEquals(testdata, (MainData)objParsed.obj);
+        
+        assertTrue(objParsed.data != null);
+        verifyEquals(testdata, objParsed.data);
         
         assertTrue(objParsed.olist != null && 
                 objParsed.olist.size() == 1 &&
